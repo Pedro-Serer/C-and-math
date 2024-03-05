@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+char* decTohex (int numero)
+{
+    int i = -1, quantidade, decQtd;
+    char snum[16];
+    
+    if (numero == 0) return "0";
+    
+    snprintf(snum, sizeof(snum), "%d", numero);
+    quantidade = strlen(snum); 
+    
+    char buffer[quantidade];
+    char* resultado = (char*)malloc(quantidade + 1);
+    
+    while(numero > 0) {
+        buffer[i += 1] = (numero % 16) >= 10 
+            ? (numero % 16) + 55 : (numero % 16) + 48;
+        numero /= 16;
+    }
+    
+    decQtd = quantidade = strlen(buffer);
+    for(i=0; i<quantidade; i++) resultado[i] = buffer[decQtd -= 1];
+    
+    resultado[quantidade] = '\0';
+    
+    return resultado;
+}
